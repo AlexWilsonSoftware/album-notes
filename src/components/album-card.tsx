@@ -9,7 +9,7 @@ import {
     MorphingDialogDescription,
     MorphingDialogContainer,
 } from '@/components/ui/morphing-dialog';
-import SimpleBar from "simplebar-react";
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export function AlbumCard(album) {
     return (
@@ -52,26 +52,28 @@ export function AlbumCard(album) {
                         alt='Cover Art'
                         className='h-full w-full'
                     />
-                    <div className='p-6 overflow-y-auto max-h-100'>
-                        <MorphingDialogTitle className='text-2xl text-zinc-950 dark:text-zinc-50'>
-                            {album.name}
-                        </MorphingDialogTitle>
-                        <MorphingDialogSubtitle className='text-zinc-700 dark:text-zinc-400'>
-                            {album.artist}
-                        </MorphingDialogSubtitle>
-                        <MorphingDialogDescription
-                            disableLayoutAnimation
-                            variants={{
-                                initial: {opacity: 0, scale: 0.8, y: 100},
-                                animate: {opacity: 1, scale: 1, y: 0},
-                                exit: {opacity: 0, scale: 0.8, y: 100},
-                            }}
-                        >
-                            <p className='mt-2 text-zinc-500 dark:text-zinc-500'>
-                                {album.notes}
-                            </p>
-                        </MorphingDialogDescription>
-                    </div>
+                    <ScrollArea className="max-h-100 h-100 rounded-md border p-4">
+                        <div className='p-6 overflow-y-auto'>
+                            <MorphingDialogTitle className='text-2xl text-zinc-950 dark:text-zinc-50'>
+                                {album.name}
+                            </MorphingDialogTitle>
+                            <MorphingDialogSubtitle className='text-zinc-700 dark:text-zinc-400'>
+                                {album.artist}
+                            </MorphingDialogSubtitle>
+                            <MorphingDialogDescription
+                                disableLayoutAnimation
+                                variants={{
+                                    initial: {opacity: 0, scale: 0.8, y: 100},
+                                    animate: {opacity: 1, scale: 1, y: 0},
+                                    exit: {opacity: 0, scale: 0.8, y: 100},
+                                }}
+                            >
+                                <p className='mt-2 text-zinc-500 dark:text-zinc-500'>
+                                    {album.notes}
+                                </p>
+                            </MorphingDialogDescription>
+                        </div>
+                    </ScrollArea>
                     <MorphingDialogClose className='text-zinc-50'/>
                 </MorphingDialogContent>
             </MorphingDialogContainer>

@@ -1,12 +1,5 @@
 import {AlbumCard} from "@/components/album-card"
 
-type album = {
-    name: string,
-    image: string,
-    notes: string,
-    artist: string,
-}
-
 const albums = [
         {
             "name": "Dark Side of the Moon",

@@ -52,15 +52,15 @@ export function AlbumCard(album: album) {
                     style={{
                         borderRadius: '24px',
                     }}
-                    className='pointer-events-auto relative flex h-auto w-full flex-col overflow-hidden border border-zinc-950/10 bg-white dark:border-zinc-50/10 dark:bg-zinc-900 sm:w-[500px]'
+                    className='pointer-events-auto relative flex h-auto max-h-[90vh] w-full flex-col overflow-hidden border border-zinc-950/10 bg-white dark:border-zinc-50/10 dark:bg-zinc-900 sm:w-[500px]'
                 >
                     <MorphingDialogImage
                         src={album.image}
                         alt='Cover Art'
                         className='h-full w-full'
                     />
-                    <ScrollArea className="max-h-100 h-100 rounded-md border p-4">
-                        <div className='p-6 overflow-y-auto'>
+                    <ScrollArea className="h-[20rem] rounded-md border p-4">
+                        <div className='p-6'>
                             <MorphingDialogTitle className='text-2xl text-zinc-950 dark:text-zinc-50'>
                                 {album.name}
                             </MorphingDialogTitle>

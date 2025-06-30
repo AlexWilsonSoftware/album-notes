@@ -38,7 +38,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## TODO
 
 - [x] Deploy
-- [ ] Scaffold basic ui with mock data
-- [ ] Actually setup a database
-- [ ] Attach db to ui
+- [x] Scaffold basic ui with mock data
+- [x] Actually setup a database
+- [x] Attach db to ui
 - [ ] Add auth (clerk?)

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { Moon, Sun } from 'lucide-react'
-import {SidebarMenuAction} from "@/components/ui/sidebar";
 
 export default function DarkModeToggle() {
     const [darkMode, setDarkMode] = useState(false)

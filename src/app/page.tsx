@@ -1,5 +1,4 @@
-import Image from "next/image";
-import {AlbumCard} from "../components/album-card"
+import {AlbumCard} from "@/components/album-card"
 
 const albums = [
         {

@@ -1,4 +1,4 @@
-import { Home, Search, Settings } from "lucide-react"
+import { Home, Search, Settings, Plus } from "lucide-react"
 
 import {
     Sidebar,
@@ -11,13 +11,18 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import DarkModeToggle from "@/components/dark-mode-toggle";
+import Link from "next/link";
 
-// Menu items.
 const items = [
     {
         title: "Home",
-        url: "#",
+        url: "/",
         icon: Home,
+    },
+    {
+        title: "Add Album",
+        url: "/add-album",
+        icon: Plus
     },
     {
         title: "Search",
@@ -42,10 +47,10 @@ export function AppSidebar() {
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
-                                        <a href={item.url}>
+                                        <Link href={item.url}>
                                             <item.icon />
                                             <span>{item.title}</span>
-                                        </a>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}

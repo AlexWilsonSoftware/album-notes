@@ -11,7 +11,14 @@ import {
 } from '@/components/ui/morphing-dialog';
 import { ScrollArea } from "@/components/ui/scroll-area"
 
-export function AlbumCard(album: never) { //TODO make album type
+type album = {
+    name: string,
+    image: string,
+    notes: string,
+    artist: string,
+}
+
+export function AlbumCard(album: album) {
     return (
         <MorphingDialog
             transition={{

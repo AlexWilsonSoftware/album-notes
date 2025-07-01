@@ -1,4 +1,6 @@
-import { Home, Search, Settings, Plus } from "lucide-react"
+"use client";
+
+import { Home, Search, Settings, Plus, User } from "lucide-react"
 
 import {
     Sidebar,
@@ -12,6 +14,8 @@ import {
 } from "@/components/ui/sidebar"
 import DarkModeToggle from "@/components/dark-mode-toggle";
 import Link from "next/link";
+import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { useRef } from 'react';
 
 const items = [
     {
@@ -37,6 +41,15 @@ const items = [
 ]
 
 export function AppSidebar() {
+    const signInRef = useRef(null);
+
+    const handleSignInClick = () => {
+        if (signInRef.current) {
+            // @ts-expect-error works fine
+            signInRef.current.click();
+        }
+    }
+
     return (
         <Sidebar>
             <SidebarContent className="h-full flex flex-col">
@@ -54,9 +67,24 @@ export function AppSidebar() {
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}
+                            <SignedOut>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton asChild onClick={handleSignInClick}>
+                                        <div className="cursor-pointer" >
+                                            <User/>
+                                            {/*@ts-expect-error ref works fine*/}
+                                            <SignInButton mode="modal" ref={signInRef}/>
+                                        </div>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+
+                            </SignedOut>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
+                <SignedIn>
+                    <UserButton/>
+                </SignedIn>
 
                 <div className="flex justify-end p-2">
                     <DarkModeToggle />

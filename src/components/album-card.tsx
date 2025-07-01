@@ -12,7 +12,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 type album = {
-    name: string,
+    title: string,
     image: string,
     notes: string,
     artist: string,
@@ -40,7 +40,7 @@ export function AlbumCard(album: album) {
                 />
                 <div className='p-2 flex flex-col flex-start'>
                         <MorphingDialogTitle className='text-zinc-950 dark:text-zinc-50'>
-                            {album.name}
+                            {album.title}
                         </MorphingDialogTitle>
                         <MorphingDialogSubtitle className='text-sm text-zinc-700 dark:text-zinc-400 p-1'>
                             {album.artist}
@@ -62,7 +62,7 @@ export function AlbumCard(album: album) {
                     <ScrollArea className="h-[20rem] rounded-md border p-4">
                         <div className='p-6'>
                             <MorphingDialogTitle className='text-2xl text-zinc-950 dark:text-zinc-50'>
-                                {album.name}
+                                {album.title}
                             </MorphingDialogTitle>
                             <MorphingDialogSubtitle className='text-zinc-700 dark:text-zinc-400'>
                                 {album.artist}

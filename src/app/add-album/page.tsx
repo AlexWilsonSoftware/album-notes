@@ -13,12 +13,32 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useEffect, useState } from "react";
 import Image from 'next/image';
+import { useAuth } from "@clerk/nextjs"
+
 
 export default function AddAlbum() {
+
+    const { userId } = useAuth();
 
     const [title, setTitle] = useState("");
     const [artist, setArtist] = useState("");
     const [coverUrl, setCoverUrl] = useState<string>("");
+
+    async function submitAlbum() {
+        try {
+            const res = await fetch('/api/albums', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, artist, coverUrl, userId }),
+            });
+            if (!res.ok) throw new Error('Failed to submit');
+            const data = await res.json();
+            console.log('Album inserted:', data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     useEffect(() => {
         (async () => {
@@ -77,7 +97,7 @@ export default function AddAlbum() {
                     </form>
                 </CardContent>
                 <CardFooter className="flex-col gap-2">
-                    <Button type="submit" className="w-full">
+                    <Button type="submit" className="w-full" onClick={submitAlbum}>
                         Submit
                     </Button>
                     <Button variant="outline" className="w-full">

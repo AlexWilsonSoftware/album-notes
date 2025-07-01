@@ -14,7 +14,7 @@ type album = {
 
 export default function Home() {
     const { userId, isSignedIn } = useAuth();
-    const [albums, setAlbums] = useState<>([]);
+    const [albums, setAlbums] = useState([]);
 
     useEffect(() => {
         if (!isSignedIn) return;

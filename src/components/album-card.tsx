@@ -9,13 +9,14 @@ import {
     MorphingDialogDescription,
     MorphingDialogContainer,
 } from '@/components/ui/morphing-dialog';
-import { ScrollArea } from "@/components/ui/scroll-area"
+import {ScrollArea} from "@/components/ui/scroll-area"
 
 type album = {
     title: string,
     image: string,
     notes: string,
     artist: string,
+    id: number
 }
 
 export function AlbumCard(album: album) {
@@ -39,12 +40,12 @@ export function AlbumCard(album: album) {
                     className='h-48 w-full object-cover'
                 />
                 <div className='p-2 flex flex-col flex-start'>
-                        <MorphingDialogTitle className='text-zinc-950 dark:text-zinc-50'>
-                            {album.title}
-                        </MorphingDialogTitle>
-                        <MorphingDialogSubtitle className='text-sm text-zinc-700 dark:text-zinc-400 p-1'>
-                            {album.artist}
-                        </MorphingDialogSubtitle>
+                    <MorphingDialogTitle className='text-zinc-950 dark:text-zinc-50'>
+                        {album.title}
+                    </MorphingDialogTitle>
+                    <MorphingDialogSubtitle className='text-sm text-zinc-700 dark:text-zinc-400 p-1'>
+                        {album.artist}
+                    </MorphingDialogSubtitle>
                 </div>
             </MorphingDialogTrigger>
             <MorphingDialogContainer>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Search, Settings, Plus, User } from "lucide-react"
+import { Home, Search, Plus, User } from "lucide-react"
 
 import {
     Sidebar,
@@ -33,11 +33,6 @@ const items = [
         url: "#",
         icon: Search,
     },
-    {
-        title: "Settings",
-        url: "#",
-        icon: Settings,
-    },
 ]
 
 export function AppSidebar() {
@@ -47,6 +42,15 @@ export function AppSidebar() {
         if (signInRef.current) {
             // @ts-expect-error works fine
             signInRef.current.click();
+        }
+    }
+
+    const userButtonRef = useRef(null);
+
+    const handleUserButtonClick = () => {
+        if (userButtonRef.current) {
+            // @ts-expect-error works fine
+            userButtonRef.current.click();
         }
     }
 
@@ -70,24 +74,23 @@ export function AppSidebar() {
                             <SignedOut>
                                 <SidebarMenuItem>
                                     <SidebarMenuButton asChild onClick={handleSignInClick}>
-                                        <div className="cursor-pointer" >
-                                            <User/>
-                                            {/*@ts-expect-error ref works fine*/}
-                                            <SignInButton mode="modal" ref={signInRef}/>
+                                        <div className="cursor-pointer">
+                                                <User/>
+                                                {/*@ts-expect-error ref works fine*/}
+                                                <SignInButton mode="modal" ref={signInRef} className="cursor-pointer"/>
                                         </div>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
-
                             </SignedOut>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
-                <SignedIn>
-                    <UserButton/>
-                </SignedIn>
 
-                <div className="flex justify-end p-2">
+                <div className="flex justify-end gap-2 p-4">
                     <DarkModeToggle />
+                    <SignedIn>
+                        <UserButton/>
+                    </SignedIn>
                 </div>
             </SidebarContent>
 

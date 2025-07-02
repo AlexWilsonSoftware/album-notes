@@ -14,22 +14,25 @@ type album = {
 
 export default function Home() {
     const { userId, isSignedIn } = useAuth();
-    const [albums, setAlbums] = useState([]);
+    const [albums, setAlbums] = useState<album[]>([]);
 
-    useEffect(() => {
+    const reloadAlbums = () => {
         if (!isSignedIn) return;
-
         fetch(`/api/albums?userId=${userId}`)
             .then((res) => res.json())
             .then(setAlbums)
             .catch(console.error);
+    };
+
+    useEffect(() => {
+        reloadAlbums();
     }, [isSignedIn, userId]);
 
     return (
         <div className="w-full">
             <div className="flex flex-wrap justify-center md:justify-start gap-4 p-4 w-full">
                 {albums.map((album: album) => (
-                    <AlbumCard key={album.id} {...album} />
+                    <AlbumCard key={album.id} album={album} reloadAlbums={reloadAlbums} />
                 ))}
             </div>
         </div>

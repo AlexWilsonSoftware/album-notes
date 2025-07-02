@@ -34,3 +34,16 @@ export async function PATCH(req: Request) {
 
     return new NextResponse();
 }
+
+export async function DELETE(req: Request) {
+    const url = new URL(req.url);
+    const id = url.searchParams.get("id");
+
+    if (!id) {
+        return NextResponse.json({ error: "Bad Request" }, { status: 400 });
+    }
+
+    await sql`DELETE from album WHERE id = ${id}`;
+
+    return new NextResponse();
+}

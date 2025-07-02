@@ -68,7 +68,7 @@ export default function EditAlbum() {
                 setIsSaved(false);
             }, 1500); // Reset saved message after 1.5s
         }
-    }, 500); // 1 second debounce
+    }, 500); // 0.5 second debounce
 
     // Watch for value changes and trigger the debounced save
     useEffect(() => {

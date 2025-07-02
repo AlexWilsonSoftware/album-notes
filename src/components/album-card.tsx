@@ -1,3 +1,5 @@
+"use client"
+
 import {
     MorphingDialog,
     MorphingDialogTrigger,
@@ -12,6 +14,7 @@ import {
 import {ScrollArea} from "@/components/ui/scroll-area"
 import Link from "next/link"
 import { Pencil } from "lucide-react"
+import { DeleteIcon } from "@/components/delete-icon"
 
 type album = {
     title: string,
@@ -21,7 +24,12 @@ type album = {
     id: number
 }
 
-export function AlbumCard(album: album) {
+type AlbumCardProps = {
+    album: album,
+    reloadAlbums: () => void;
+}
+
+export function AlbumCard({ album, reloadAlbums }: AlbumCardProps) {
     return (
         <MorphingDialog
             transition={{
@@ -62,11 +70,17 @@ export function AlbumCard(album: album) {
                         alt='Cover Art'
                         className='h-full w-full'
                     />
-                    <Link href={`/album/${album.id}`}>
-                        <Pencil />
-                    </Link>
-                    <ScrollArea className="h-[20rem] rounded-md border p-4">
-                        <div className='p-6'>
+                    <div className="flex justify-end">
+                        <div className="flex gap-2 p-2">
+                            <Link href={`/album/${album.id}`} className="w-5 h-5 align-self-end">
+                                <Pencil className="w-5 h-5" />
+                            </Link>
+                            <DeleteIcon album={album} reloadAlbums={reloadAlbums} />
+                        </div>
+                    </div>
+
+                    <ScrollArea className="h-[20rem] rounded-md px-4 pb-4">
+                        <div className="px-6">
                             <MorphingDialogTitle className='text-2xl text-zinc-950 dark:text-zinc-50'>
                                 {album.title}
                             </MorphingDialogTitle>
@@ -87,7 +101,7 @@ export function AlbumCard(album: album) {
                             </MorphingDialogDescription>
                         </div>
                     </ScrollArea>
-                    <MorphingDialogClose className='text-zinc-50'/>
+                    <MorphingDialogClose className='text-zinc-50 cursor-pointer'/>
                 </MorphingDialogContent>
             </MorphingDialogContainer>
         </MorphingDialog>

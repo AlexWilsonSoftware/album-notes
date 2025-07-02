@@ -45,15 +45,6 @@ export function AppSidebar() {
         }
     }
 
-    const userButtonRef = useRef(null);
-
-    const handleUserButtonClick = () => {
-        if (userButtonRef.current) {
-            // @ts-expect-error works fine
-            userButtonRef.current.click();
-        }
-    }
-
     return (
         <Sidebar>
             <SidebarContent className="h-full flex flex-col">

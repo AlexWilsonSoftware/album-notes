@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Dialog,
     DialogDescription,
@@ -32,6 +34,7 @@ export function DeleteIcon({ album, reloadAlbums }: DeleteIconProps) {
             });
 
             reloadAlbums();
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             console.log('Error deleting album')
         }

@@ -41,4 +41,15 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [x] Scaffold basic ui with mock data
 - [x] Actually setup a database
 - [x] Attach db to ui
-- [ ] Add auth (clerk?)
+- [x] Add auth (clerk?)
+- [x] Make it look good on mobile
+- [x] Delete from edit page
+- [ ] Go home after adding album
+- [ ] Back arrow from edit page
+- [ ] Fix paragraphs in cards
+- [ ] Title on home page
+- [ ] Add validation for adding albums (no duplicates)
+- [ ] Work on performance and loading screens
+- [ ] Change edit page so that you can edit title and artist (also no dupes)
+- [ ] Implement filtering on home page
+- [ ] Implement search (and filter)

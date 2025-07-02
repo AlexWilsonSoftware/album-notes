@@ -6,7 +6,9 @@ import {ScrollArea} from "@/components/ui/scroll-area";
 import {Textarea} from "@/components/ui/textarea";
 import { useParams } from "next/navigation";
 import {useEffect, useRef, useState} from "react";
+import { DeleteIcon } from "@/components/delete-icon"
 import debounce from "lodash.debounce";
+import { useRouter } from "next/navigation"
 
 type album = {
     title: string,
@@ -21,10 +23,15 @@ export default function EditAlbum() {
     const id = params.id;
     const [album, setAlbum] = useState<album | null>(null);
     const [loading, setLoading] = useState(true);
-    const [newNotes, setNewNotes] = useState<string>("");
+    const [newNotes, setNewNotes] = useState<string | undefined>();
     const [isSaving, setIsSaving] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const saveTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const router = useRouter();
+
+    const routeHome = () => {
+        router.push("/");
+    };
 
     useEffect(() => {
         const fetchAlbum = async () => {
@@ -43,7 +50,7 @@ export default function EditAlbum() {
         fetchAlbum();
     }, [id]);
 
-    const save = debounce(async (newValue: string) => {
+    const save = debounce(async (newValue: string | undefined) => {
         setIsSaving(true);
         setIsSaved(false);
 
@@ -89,7 +96,7 @@ export default function EditAlbum() {
     return (
         <ScrollArea className="h-screen py-4">
             <div className='flex justify-center'>
-                <div className='p-6 flex flex-col w-1/3 gap-4'>
+                <div className='p-6 flex flex-col w-9/10 md:w-1/3 lg:w-1/3 gap-4'>
                     <Card className="w-full aspect-square overflow-hidden relative">
                         <Image
                             src={album.image}
@@ -98,6 +105,9 @@ export default function EditAlbum() {
                             className="object-cover"
                         />
                     </Card>
+                    <div>
+                        <DeleteIcon album={album} reloadAlbums={routeHome}/>
+                    </div>
                     <span className='text-4xl font-medium text-zinc-950 dark:text-zinc-50'>
                             {album.title}
                         </span>

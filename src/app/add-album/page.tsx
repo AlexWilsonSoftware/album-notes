@@ -59,7 +59,7 @@ export default function AddAlbum() {
 
     return (
         <div className="flex flex-col items-center justify-center w-full h-full gap-8">
-            <Card className="w-full max-w-sm">
+            <Card className="w-9/10 md:w-full lg:w-full max-w-sm">
                 <CardHeader>
                     <CardTitle>Add an Album</CardTitle>
                     <CardDescription>

@@ -47,7 +47,7 @@ export function AlbumCard({ album, reloadAlbums }: AlbumCardProps) {
                 <MorphingDialogImage
                     src={album.image}
                     alt='Cover art'
-                    className='h-48 w-full object-cover'
+                    className='h-full md:h-42 lg:h-42 w-full object-cover'
                 />
                 <div className='p-2 flex flex-col flex-start'>
                     <MorphingDialogTitle className='text-zinc-950 dark:text-zinc-50'>
@@ -63,7 +63,7 @@ export function AlbumCard({ album, reloadAlbums }: AlbumCardProps) {
                     style={{
                         borderRadius: '24px',
                     }}
-                    className='pointer-events-auto relative flex h-auto max-h-[90vh] w-full flex-col overflow-hidden border border-zinc-950/10 bg-white dark:border-zinc-50/10 dark:bg-zinc-900 sm:w-[500px]'
+                    className='pointer-events-auto relative flex max-h-[90vh] w-full flex-col overflow-hidden border border-zinc-950/10 bg-white dark:border-zinc-50/10 dark:bg-zinc-900 sm:w-[500px]'
                 >
                     <MorphingDialogImage
                         src={album.image}

@@ -44,9 +44,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [x] Add auth (clerk?)
 - [x] Make it look good on mobile
 - [x] Delete from edit page
-- [ ] Go home after adding album
-- [ ] Back arrow from edit page
-- [ ] Fix paragraphs in cards
+- [x] Go home after adding album
+- [x] Fix paragraphs in cards
 - [ ] Title on home page
 - [ ] Add validation for adding albums (no duplicates)
 - [ ] Work on performance and loading screens

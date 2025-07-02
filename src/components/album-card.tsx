@@ -15,6 +15,7 @@ import {ScrollArea} from "@/components/ui/scroll-area"
 import Link from "next/link"
 import { Pencil } from "lucide-react"
 import { DeleteIcon } from "@/components/delete-icon"
+import React from "react";
 
 type album = {
     title: string,
@@ -95,8 +96,13 @@ export function AlbumCard({ album, reloadAlbums }: AlbumCardProps) {
                                     exit: {opacity: 0, scale: 0.8, y: 100},
                                 }}
                             >
-                                <p className='mt-2 text-zinc-500 dark:text-zinc-500'>
-                                    {album.notes}
+                                <p className="mt-2 text-zinc-500 dark:text-zinc-500">
+                                    {album.notes === null ? "You have not left a note on this album" : album.notes.split("\n").map((line, i) => (
+                                        <React.Fragment key={i}>
+                                            {line}
+                                            <br />
+                                        </React.Fragment>
+                                    ))}
                                 </p>
                             </MorphingDialogDescription>
                         </div>

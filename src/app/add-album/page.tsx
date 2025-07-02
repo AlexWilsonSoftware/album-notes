@@ -14,9 +14,10 @@ import { Label } from "@/components/ui/label"
 import { useEffect, useState } from "react";
 import Image from 'next/image';
 import { useAuth } from "@clerk/nextjs"
-
+import { useRouter } from "next/navigation"
 
 export default function AddAlbum() {
+    const router = useRouter();
 
     const { userId } = useAuth();
 
@@ -33,6 +34,7 @@ export default function AddAlbum() {
             });
             if (!res.ok) throw new Error('Failed to submit');
             const data = await res.json();
+            router.push("/")
             console.log('Album inserted:', data);
         } catch (error) {
             console.error(error);

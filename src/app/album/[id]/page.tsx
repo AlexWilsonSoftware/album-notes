@@ -32,6 +32,7 @@ export default function EditAlbum() {
                 const res = await fetch(`/api/album?id=${id}`);
                 const data = await res.json();
                 setAlbum(data);
+                setNewNotes(data.notes);
             } catch (error) {
                 console.error("Failed to fetch albums:", error);
             } finally {
@@ -67,7 +68,7 @@ export default function EditAlbum() {
                 setIsSaved(false);
             }, 1500); // Reset saved message after 1.5s
         }
-    }, 1000); // 1 second debounce
+    }, 500); // 1 second debounce
 
     // Watch for value changes and trigger the debounced save
     useEffect(() => {
@@ -103,7 +104,7 @@ export default function EditAlbum() {
                     <span className='text-xl text-zinc-700 dark:text-zinc-400 italic mt-[-8px]'>
                             {album.artist}
                         </span>
-                    <Textarea className='text-xl' defaultValue={album.notes} placeholder="Write your notes here..."
+                    <Textarea className='text-xl' value={newNotes} placeholder="Write your notes here..."
                               onChange={(event) => setNewNotes(event.target.value)}/>
                     <div className="text-sm text-muted-foreground mt-1 h-5">
                         {isSaving ? (

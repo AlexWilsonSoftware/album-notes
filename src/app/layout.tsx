@@ -37,7 +37,15 @@ export default function RootLayout({
           <SidebarProvider>
               <AppSidebar />
               <main className="w-full">
-                  <SidebarTrigger />
+                  <div className="flex justify-between">
+                      <SidebarTrigger />
+                      <div className="flex flex-col items-center pt-2">
+                          <p className="text-5xl font-semibold">Album Notes</p>
+                          <p className="text-lg italic text-zinc-400">A lightweight quick notes app</p>
+                      </div>
+
+                      <SidebarTrigger className="invisible" />
+                  </div>
                   {children}
               </main>
           </SidebarProvider>

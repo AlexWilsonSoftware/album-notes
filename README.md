@@ -46,8 +46,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [x] Delete from edit page
 - [x] Go home after adding album
 - [x] Fix paragraphs in cards
-- [ ] Title on home page
-- [ ] Add validation for adding albums (no duplicates)
+- [x] Title on home page
+- [ ] Plus icon card
+- [ ] Add validation for adding albums (no duplicates, text limit)
 - [ ] Work on performance and loading screens
 - [ ] Change edit page so that you can edit title and artist (also no dupes)
 - [ ] Implement filtering on home page

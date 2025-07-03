@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { ClerkProvider } from "@clerk/nextjs"
 import { dark } from '@clerk/themes'
+import {Toaster} from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
               <main className="w-full">
                   <SidebarTrigger />
                   {children}
+                  <Toaster richColors position="bottom-right" />
               </main>
           </SidebarProvider>
           </body>

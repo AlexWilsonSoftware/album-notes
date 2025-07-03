@@ -6,6 +6,25 @@ const sql = neon(process.env.POSTGRES_URL!);
 export async function POST(request: Request) {
     const { title, artist, coverUrl, userId } = await request.json();
 
+    const albums = await sql`SELECT * FROM album WHERE "userId" = ${userId}`;
+
+    const exists = albums.map(album => album.title.toLowerCase() === title.toLowerCase()).some(value => value);
+
+    if (exists) {
+        console.error("Album title already exists");
+        return NextResponse.json({ error: "Album already exists in your notes" }, { status: 400 });
+    }
+
+    if (title.length > 100) {
+        console.error("Album title too long");
+        return NextResponse.json({ error: "Title must be under 100 characters" }, { status: 400 });
+    }
+
+    if (artist.length > 100) {
+        console.error("Artist name too long");
+        return NextResponse.json({ error: "Artist must be under 100 characters" }, { status: 400 });
+    }
+
     try {
         const inserted = await sql`
       INSERT INTO album (title, artist, image, "userId")

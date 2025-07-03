@@ -15,6 +15,12 @@ import { useEffect, useState } from "react";
 import Image from 'next/image';
 import { useAuth } from "@clerk/nextjs"
 import { useRouter } from "next/navigation"
+import {
+    Alert,
+    AlertDescription,
+    AlertTitle,
+} from "@/components/ui/alert"
+import { AlertCircleIcon } from "lucide-react";
 
 export default function AddAlbum() {
     const router = useRouter();
@@ -24,16 +30,37 @@ export default function AddAlbum() {
     const [title, setTitle] = useState("");
     const [artist, setArtist] = useState("");
     const [coverUrl, setCoverUrl] = useState<string>("");
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
     async function submitAlbum() {
+
+        if (!title.trim() || !artist.trim()) {
+            setErrorMessage("Both title and artist are required");
+            return;
+        }
+
+        if (title.length > 100) {
+            setErrorMessage("Title must be under 100 characters");
+            return;
+        }
+
+        if (artist.length > 100) {
+            setErrorMessage("Artist must be under 100 characters");
+            return;
+        }
+
         try {
             const res = await fetch('/api/albums', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title, artist, coverUrl, userId }),
             });
+            const data = await res.json()
+            if (res.status === 400) {
+                setErrorMessage(data.error)
+            }
             if (!res.ok) throw new Error('Failed to submit');
-            const data = await res.json();
+            setErrorMessage(null)
             router.push("/")
             console.log('Album inserted:', data);
         } catch (error) {
@@ -44,6 +71,7 @@ export default function AddAlbum() {
 
     useEffect(() => {
         (async () => {
+            setErrorMessage(null);
             try {
                 const res = await fetch(`/api/album-art?artist=${encodeURIComponent(artist)}&album=${encodeURIComponent(title)}`);
                 const data = await res.json();
@@ -99,7 +127,7 @@ export default function AddAlbum() {
                     </form>
                 </CardContent>
                 <CardFooter className="flex-col gap-2">
-                    <Button type="submit" className="w-full" onClick={submitAlbum}>
+                    <Button onClick={submitAlbum} className="w-full">
                         Submit
                     </Button>
                     <Button variant="outline" className="w-full">
@@ -107,6 +135,13 @@ export default function AddAlbum() {
                     </Button>
                 </CardFooter>
             </Card>
+            {errorMessage !== null && <Alert variant="destructive" className="w-9/10 md:w-full lg:w-full max-w-sm">
+                <AlertCircleIcon />
+                <AlertTitle>Unable to add album</AlertTitle>
+                <AlertDescription>
+                    <p>{errorMessage}</p>
+                </AlertDescription>
+            </Alert>}
             <div>
                 {
                     coverUrl == "" ? <Card><CardDescription className="p-8">Start typing and we&#39;ll find the album cover</CardDescription></Card> :

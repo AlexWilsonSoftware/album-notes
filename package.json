@@ -27,11 +27,13 @@
     "lucide-react": "^0.525.0",
     "motion": "^12.22.0",
     "next": "15.3.4",
+    "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.59.0",
     "rm": "^0.1.8",
     "simplebar-react": "^3.3.1",
+    "sonner": "^2.0.5",
     "tailwind-merge": "^3.3.1",
     "vercel": "^44.2.7",
     "zod": "^3.25.67"

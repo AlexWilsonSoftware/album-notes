@@ -1,6 +1,7 @@
 "use client"
 
 import { AlbumCard } from "@/components/album-card";
+import { PlusCard } from "@/components/plus-card"
 import {useAuth} from "@clerk/nextjs";
 import {useEffect, useState} from "react";
 
@@ -34,6 +35,7 @@ export default function Home() {
                 {albums.map((album: album) => (
                     <AlbumCard key={album.id} album={album} reloadAlbums={reloadAlbums} />
                 ))}
+                <PlusCard/>
             </div>
         </div>
     );

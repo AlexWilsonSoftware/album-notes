@@ -20,7 +20,8 @@ import {
     AlertDescription,
     AlertTitle,
 } from "@/components/ui/alert"
-import { AlertCircleIcon } from "lucide-react";
+import { AlertCircleIcon, Loader2Icon } from "lucide-react";
+import {toast} from "sonner";
 
 export default function AddAlbum() {
     const router = useRouter();
@@ -31,21 +32,26 @@ export default function AddAlbum() {
     const [artist, setArtist] = useState("");
     const [coverUrl, setCoverUrl] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
+    const [loading, setLoading] = useState<boolean>(false);
 
     async function submitAlbum() {
+        setLoading(true);
 
         if (!title.trim() || !artist.trim()) {
             setErrorMessage("Both title and artist are required");
+            setLoading(false);
             return;
         }
 
         if (title.length > 100) {
             setErrorMessage("Title must be under 100 characters");
+            setLoading(false);
             return;
         }
 
         if (artist.length > 100) {
             setErrorMessage("Artist must be under 100 characters");
+            setLoading(false);
             return;
         }
 
@@ -57,10 +63,13 @@ export default function AddAlbum() {
             });
             const data = await res.json()
             if (res.status === 400) {
+                setLoading(false);
                 setErrorMessage(data.error)
             }
             if (!res.ok) throw new Error('Failed to submit');
             setErrorMessage(null)
+            setLoading(false);
+            toast.success("Album successfully added")
             router.push("/")
             console.log('Album inserted:', data);
         } catch (error) {
@@ -127,10 +136,13 @@ export default function AddAlbum() {
                     </form>
                 </CardContent>
                 <CardFooter className="flex-col gap-2">
-                    <Button onClick={submitAlbum} className="w-full">
+                    {loading ? <Button className="w-full cursor-pointer" disabled>
+                        <Loader2Icon className="animate-spin" />
+                        Please wait
+                    </Button> : <Button onClick={submitAlbum} className="w-full cursor-pointer">
                         Submit
-                    </Button>
-                    <Button variant="outline" className="w-full">
+                    </Button>}
+                    <Button variant="outline" className="w-full cursor-pointer" onClick={() => router.back()}>
                         Cancel
                     </Button>
                 </CardFooter>

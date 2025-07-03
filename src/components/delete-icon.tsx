@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import {Trash2} from "lucide-react";
 import {Button} from "@/components/ui/button";
+import {toast} from "sonner";
 
 type album = {
     title: string,
@@ -33,9 +34,11 @@ export function DeleteIcon({ album, reloadAlbums }: DeleteIconProps) {
                 headers: {"Content-Type": "application/json"},
             });
 
+            toast.success("Album successfully deleted")
             reloadAlbums();
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
+            toast.error("Unexpected error. Could not delete album")
             console.log('Error deleting album')
         }
 

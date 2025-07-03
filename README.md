@@ -50,7 +50,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [x] Plus icon card
 - [x] Add validation for adding albums (no duplicates, text limit)
 - [ ] Work on performance and loading screens
-- [ ] Add toasts
+- [x] Add toasts
 - [ ] Change edit page so that you can edit title and artist (also no dupes)
 - [ ] Implement filtering on home page
 - [ ] Implement search (and filter)
+- [ ] Being logged out prompts login

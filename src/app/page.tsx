@@ -4,6 +4,7 @@ import { AlbumCard } from "@/components/album-card";
 import { PlusCard } from "@/components/plus-card"
 import {useAuth} from "@clerk/nextjs";
 import {useEffect, useState} from "react";
+import { motion } from "framer-motion"
 
 type album = {
     title: string,
@@ -16,27 +17,51 @@ type album = {
 export default function Home() {
     const { userId, isSignedIn } = useAuth();
     const [albums, setAlbums] = useState<album[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const reloadAlbums = () => {
+    const reloadAlbums = async () => {
         if (!isSignedIn) return;
-        fetch(`/api/albums?userId=${userId}`)
-            .then((res) => res.json())
-            .then(setAlbums)
-            .catch(console.error);
+
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/albums?userId=${userId}`);
+            const data = await res.json();
+            setAlbums(data);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
     };
+
 
     useEffect(() => {
         reloadAlbums();
     }, [isSignedIn, userId]);
 
-    return (
-        <div className="w-full">
+    if (loading) {
+        return (
             <div className="flex flex-wrap justify-center md:justify-start gap-4 p-4 w-full">
+                {Array.from({ length: 8 }).map((_, i) => (
+                    <div key={i} className="w-42 h-62 bg-muted rounded-md animate-pulse" />
+                ))}
+            </div>
+        );
+    }
+
+    return (
+        <motion.div className="w-full">
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                className="flex flex-wrap justify-center md:justify-start gap-4 p-4 w-full"
+            >
                 {albums.map((album: album) => (
                     <AlbumCard key={album.id} album={album} reloadAlbums={reloadAlbums} />
                 ))}
                 <PlusCard/>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 }

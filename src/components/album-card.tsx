@@ -48,7 +48,7 @@ export function AlbumCard({ album, reloadAlbums }: AlbumCardProps) {
                 <MorphingDialogImage
                     src={album.image}
                     alt='Cover art'
-                    className='h-full md:h-42 lg:h-42 w-full object-cover'
+                    className='h-full md:h-42 lg:h-42 max-h-42 w-full object-cover'
                 />
                 <div className='p-2 flex flex-col flex-start'>
                     <MorphingDialogTitle className='text-zinc-950 dark:text-zinc-50 line-clamp-2'>

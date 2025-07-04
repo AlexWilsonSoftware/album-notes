@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     try {
         const inserted = await sql`
       INSERT INTO album (title, artist, image, "userId")
-      VALUES (${title}, ${artist}, ${coverUrl}, ${userId})
+      VALUES (${title.trim()}, ${artist.trim()}, ${coverUrl}, ${userId})
       RETURNING *;
     `;
         return NextResponse.json(inserted[0]);

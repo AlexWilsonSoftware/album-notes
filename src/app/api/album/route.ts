@@ -62,19 +62,19 @@ export async function PATCH(req: Request) {
     }
 
     if (notes != null) {
-        await sql`UPDATE album SET notes = ${notes} WHERE id = ${id}`;
+        await sql`UPDATE album SET notes = ${notes}, edited = ${new Date()} WHERE id = ${id}`;
     }
 
     if (artist != null) {
-        await sql`UPDATE album SET artist = ${artist.trim()} WHERE id = ${id}`;
+        await sql`UPDATE album SET artist = ${artist.trim()}, edited = ${new Date()} WHERE id = ${id}`;
     }
 
     if (title != null) {
-        await sql`UPDATE album SET title = ${title.trim()} WHERE id = ${id}`;
+        await sql`UPDATE album SET title = ${title.trim()}, edited = ${new Date()} WHERE id = ${id}`;
     }
 
     if (image != null) {
-        await sql`UPDATE album SET image = ${image} WHERE id = ${id}`;
+        await sql`UPDATE album SET image = ${image}, edited = ${new Date()} WHERE id = ${id}`;
     }
 
     return NextResponse.json({ status: 200 });

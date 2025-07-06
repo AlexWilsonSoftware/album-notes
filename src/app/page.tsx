@@ -64,7 +64,7 @@ export default function Home() {
         }
     }, [sort]);
 
-    if (!userId) {
+    if (!userId && !loading) {
         return (
             <div className="flex flex-col items-center justify-center h-screen">
                 <p className="text-xl mb-4">You must be signed in to view this page.</p>

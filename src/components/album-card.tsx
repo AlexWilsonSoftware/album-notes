@@ -16,6 +16,7 @@ import Link from "next/link"
 import { Pencil } from "lucide-react"
 import { DeleteIcon } from "@/components/delete-icon"
 import React from "react";
+import { useSearchParams } from "next/navigation";
 
 type album = {
     title: string,
@@ -31,6 +32,9 @@ type AlbumCardProps = {
 }
 
 export function AlbumCard({ album, reloadAlbums }: AlbumCardProps) {
+    const searchParams = useSearchParams();
+    const search = searchParams.get('q');
+
     return (
         <MorphingDialog
             transition={{
@@ -73,7 +77,7 @@ export function AlbumCard({ album, reloadAlbums }: AlbumCardProps) {
                     />
                     <div className="flex justify-end">
                         <div className="flex gap-2 p-2">
-                            <Link href={`/album/${album.id}`} className="w-5 h-5 align-self-end">
+                            <Link href={`/album/${album.id}?q=${search}`} className="w-5 h-5 align-self-end">
                                 <Pencil className="w-5 h-5" />
                             </Link>
                             <DeleteIcon album={album} reloadAlbums={reloadAlbums} />

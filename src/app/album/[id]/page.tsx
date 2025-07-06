@@ -4,7 +4,7 @@ import Image from "next/image";
 import {Card} from "@/components/ui/card";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Textarea} from "@/components/ui/textarea";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import {useEffect, useRef, useState} from "react";
 import { DeleteIcon } from "@/components/delete-icon"
 import debounce from "lodash.debounce";
@@ -13,6 +13,7 @@ import { NewAlbumInput } from "@/components/new-album-input"
 import { NewTitleInput } from "@/components/new-title-input";
 import { toast } from "sonner";
 import { useAuth } from "@clerk/nextjs";
+import Link from "next/link";
 
 type album = {
     title: string,
@@ -36,6 +37,8 @@ export default function EditAlbum() {
     const [isSaved, setIsSaved] = useState(false);
     const saveTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const search = searchParams.get("q");
 
     const routeHome = () => {
         router.push("/");
@@ -219,6 +222,11 @@ export default function EditAlbum() {
         <ScrollArea className="h-screen py-4">
             <div className='flex justify-center'>
                 <div className='p-6 flex flex-col w-9/10 md:w-1/3 lg:w-1/3 gap-4'>
+                    {search !== "null" &&
+                        <Link href={`/?q=${search}`} className="underline">
+                            Return to search &#34;<i>{search}</i>&#34;
+                        </Link>
+                    }
                     <Card className="w-full aspect-square overflow-hidden relative">
                         <Image
                             src={newImage == null ? album.image : newImage}

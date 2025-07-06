@@ -53,5 +53,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [x] Add toasts
 - [x] Change edit page so that you can edit title and artist (also no dupes)
 - [ ] Implement filtering on home page
-- [ ] Implement search (and filter)
+- [x] Implement search (and filter)
 - [ ] Being logged out prompts login

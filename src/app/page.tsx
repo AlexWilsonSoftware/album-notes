@@ -5,6 +5,8 @@ import { PlusCard } from "@/components/plus-card"
 import {useAuth} from "@clerk/nextjs";
 import {useEffect, useState} from "react";
 import { motion } from "framer-motion"
+import { useSearchParams } from 'next/navigation'
+import Link from "next/link";
 
 type album = {
     title: string,
@@ -18,14 +20,17 @@ export default function Home() {
     const { userId, isSignedIn } = useAuth();
     const [albums, setAlbums] = useState<album[]>([]);
     const [loading, setLoading] = useState(true);
+    const searchParams = useSearchParams();
+    const search = searchParams.get('q');
 
     const reloadAlbums = async () => {
         if (!isSignedIn) return;
 
         setLoading(true);
         try {
-            const res = await fetch(`/api/albums?userId=${userId}`);
+            const res = await fetch(`/api/albums?userId=${userId}&q=${search}`);
             const data = await res.json();
+            console.log(data)
             setAlbums(data);
         } catch (err) {
             console.error(err);
@@ -37,7 +42,7 @@ export default function Home() {
 
     useEffect(() => {
         reloadAlbums();
-    }, [isSignedIn, userId]);
+    }, [isSignedIn, userId, search]);
 
     if (loading) {
         return (
@@ -50,18 +55,24 @@ export default function Home() {
     }
 
     return (
-        <motion.div className="w-full">
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4 }}
-                className="flex flex-wrap justify-center md:justify-start gap-4 p-4 w-full"
-            >
-                {albums.map((album: album) => (
-                    <AlbumCard key={album.id} album={album} reloadAlbums={reloadAlbums} />
-                ))}
-                <PlusCard/>
+        <div>
+            {search &&
+                <p className="text-2xl md:text-4xl font-semibold text-zinc-700 dark:text-zinc-300 justify-self-center">Showing results for: &#34;<Link href={"/"} className="hover:line-through cursor-pointer italic">{search}</Link>&#34;</p>
+            }
+            <motion.div className="w-full">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                    className="flex flex-wrap justify-center md:justify-start gap-4 p-4 w-full"
+                >
+                    {albums.map((album: album) => (
+                        <AlbumCard key={album.id} album={album} reloadAlbums={reloadAlbums} />
+                    ))}
+                    <PlusCard/>
+                </motion.div>
             </motion.div>
-        </motion.div>
+        </div>
+
     );
 }

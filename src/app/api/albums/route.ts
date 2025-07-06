@@ -41,12 +41,28 @@ export async function POST(request: Request) {
 export async function GET(req: Request) {
     const url = new URL(req.url);
     const userId = url.searchParams.get("userId");
+    const search = url.searchParams.get("q");
 
     if (!userId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const albums = await sql`SELECT * FROM album WHERE "userId" = ${userId}`;
+    if (search === "null") {
+        const albums = await sql`SELECT * FROM album WHERE "userId" = ${userId}`;
 
-    return NextResponse.json(albums);
+        return NextResponse.json(albums);
+    } else {
+        const albums = await sql`
+            SELECT * FROM album
+            WHERE "userId" = ${userId}
+              AND (
+                title ILIKE ${'%' + search + '%'}
+                    OR artist ILIKE ${'%' + search + '%'}
+                    OR notes ILIKE ${'%' + search + '%'}
+                )
+        `;
+
+        return NextResponse.json(albums);
+    }
+
 }

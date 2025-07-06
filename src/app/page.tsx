@@ -91,7 +91,10 @@ export default function Home() {
             {search &&
                 <p className="text-2xl md:text-4xl font-semibold text-zinc-700 dark:text-zinc-300 justify-self-center pb-4">Showing results for: &#34;<Link href={"/"} className="hover:line-through cursor-pointer italic">{search}</Link>&#34;</p>
             }
-            <SortToggleGroup setSort={setSort} />
+            <div className="w-full items-center">
+                <SortToggleGroup setSort={setSort} />
+            </div>
+
             <motion.div className="w-full">
                 <motion.div
                     initial={{ opacity: 0 }}

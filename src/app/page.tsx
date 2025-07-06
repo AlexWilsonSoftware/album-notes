@@ -2,7 +2,7 @@
 
 import { AlbumCard } from "@/components/album-card";
 import { PlusCard } from "@/components/plus-card"
-import {SignInButton, useAuth} from "@clerk/nextjs";
+import {SignedIn, SignInButton, useAuth, UserButton} from "@clerk/nextjs";
 import {useEffect, useState} from "react";
 import { motion } from "framer-motion"
 import { useSearchParams } from 'next/navigation'
@@ -95,6 +95,11 @@ export default function Home() {
                 <SortToggleGroup setSort={setSort} />
             </div>
 
+            <SignedIn>
+                <div className="absolute top-5 right-5 z-[9999]">
+                    <UserButton />
+                </div>
+            </SignedIn>
             <motion.div className="w-full">
                 <motion.div
                     initial={{ opacity: 0 }}

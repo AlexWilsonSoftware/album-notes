@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
-import { ClerkProvider } from "@clerk/nextjs"
+import {ClerkProvider} from "@clerk/nextjs"
 import { dark } from '@clerk/themes'
 import {Toaster} from "sonner";
 import { Suspense } from "react";

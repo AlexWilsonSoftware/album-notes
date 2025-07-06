@@ -5,13 +5,18 @@ const sql = neon(process.env.POSTGRES_URL!);
 
 export async function GET(req: Request) {
     const url = new URL(req.url);
+    const userId = url.searchParams.get("userId");
     const id = url.searchParams.get("id");
 
     if (!id) {
         return NextResponse.json({ error: "Bad Request" }, { status: 400 });
     }
 
-    const album = await sql`SELECT * FROM album WHERE id = ${id}`;
+    const album = await sql`SELECT * FROM album WHERE id = ${id} AND "userId" = ${userId}`;
+
+    if (album.length === 0) {
+        return NextResponse.json({ error: "Not Found" }, { status: 404 });
+    }
 
     return NextResponse.json(album[0]);
 }

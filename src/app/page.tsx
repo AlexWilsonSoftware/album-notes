@@ -2,12 +2,13 @@
 
 import { AlbumCard } from "@/components/album-card";
 import { PlusCard } from "@/components/plus-card"
-import {useAuth} from "@clerk/nextjs";
+import {SignInButton, useAuth} from "@clerk/nextjs";
 import {useEffect, useState} from "react";
 import { motion } from "framer-motion"
 import { useSearchParams } from 'next/navigation'
 import Link from "next/link";
 import { SortToggleGroup } from "@/components/sort-toggle-group";
+import {Button} from "@/components/ui/button";
 
 type album = {
     title: string,
@@ -62,6 +63,17 @@ export default function Home() {
             setAlbums(sorted);
         }
     }, [sort]);
+
+    if (!userId) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                <p className="text-xl mb-4">You must be signed in to view this page.</p>
+                <SignInButton mode="modal">
+                    <Button className="cursor-pointer">Sign In</Button>
+                </SignInButton>
+            </div>
+        );
+    }
 
 
     if (loading) {

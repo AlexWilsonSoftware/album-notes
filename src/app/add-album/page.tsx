@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/alert"
 import { AlertCircleIcon, Loader2Icon } from "lucide-react";
 import {toast} from "sonner";
+import { SignInButton } from "@clerk/nextjs";
 
 export default function AddAlbum() {
     const router = useRouter();
@@ -95,6 +96,17 @@ export default function AddAlbum() {
             }
         })();
     }, [title, artist]);
+
+    if (!userId) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                <p className="text-xl mb-4">You must be signed in to view this page.</p>
+                <SignInButton mode="modal">
+                    <Button className="cursor-pointer">Sign In</Button>
+                </SignInButton>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col items-center justify-center w-full h-full gap-8">

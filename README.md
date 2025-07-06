@@ -54,5 +54,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [x] Change edit page so that you can edit title and artist (also no dupes)
 - [x] Implement filtering on home page
 - [x] Implement search (and filter)
-- [ ] Being logged out prompts login
+- [x] Being logged out prompts login
 - [ ] Accent color picker?

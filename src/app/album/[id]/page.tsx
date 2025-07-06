@@ -35,6 +35,7 @@ export default function EditAlbum() {
     const [newImage, setNewImage] = useState<string | undefined>();
     const [isSaving, setIsSaving] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
+    const [notFound, setNotFound] = useState(true);
     const saveTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -46,23 +47,38 @@ export default function EditAlbum() {
 
     useEffect(() => {
         const fetchAlbum = async () => {
+            setLoading(true);
             try {
-                const res = await fetch(`/api/album?id=${id}`);
+                const res = await fetch(`/api/album?id=${id}&userId=${userId}`);
+
+                if (!res.ok) {
+                    if (res.status === 404) {
+                        setNotFound(true);
+                    } else {
+                        console.error("Unexpected error:", res.status);
+                    }
+                    setAlbum(null);
+                    return;
+                }
+
                 const data = await res.json();
+                setNotFound(false);
                 setAlbum(data);
                 setNewNotes(data.notes);
                 setNewArtist(data.artist);
                 setNewTitle(data.title);
                 setNewImage(data.image);
             } catch (error) {
-                console.error("Failed to fetch albums:", error);
+                console.error("Failed to fetch album:", error);
+                setAlbum(null);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchAlbum();
-    }, [id]);
+    }, [id, userId]);
+
 
     const saveNotes = debounce(async (patchNotes: string | undefined) => {
         setIsSaving(true);
@@ -210,10 +226,16 @@ export default function EditAlbum() {
         checkImage()
     }, [newTitle, newArtist])
 
-    if (loading || !album) {
+    if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
                 <p className="text-xl text-zinc-600">Loading album...</p>
+            </div>
+        );
+    } else if (notFound || !album) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <p className="text-xl text-zinc-600">Album could not be found</p>
             </div>
         );
     }
@@ -222,7 +244,7 @@ export default function EditAlbum() {
         <ScrollArea className="h-screen py-4">
             <div className='flex justify-center'>
                 <div className='p-6 flex flex-col w-9/10 md:w-1/3 lg:w-1/3 gap-4'>
-                    {search !== "null" &&
+                    {search !== "null" || search === null &&
                         <Link href={`/?q=${search}`} className="underline">
                             Return to search &#34;<i>{search}</i>&#34;
                         </Link>

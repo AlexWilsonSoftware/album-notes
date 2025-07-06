@@ -77,7 +77,7 @@ export function AlbumCard({ album, reloadAlbums }: AlbumCardProps) {
                     />
                     <div className="flex justify-end">
                         <div className="flex gap-2 p-2">
-                            <Link href={`/album/${album.id}?q=${search}`} className="w-5 h-5 align-self-end">
+                            <Link href={search === null ? `/album/${album.id}` : `/album/${album.id}?q=${search}`} className="w-5 h-5 align-self-end">
                                 <Pencil className="w-5 h-5" />
                             </Link>
                             <DeleteIcon album={album} reloadAlbums={reloadAlbums} />

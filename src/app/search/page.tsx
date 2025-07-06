@@ -4,10 +4,23 @@ import { NewAlbumInput } from "@/components/new-album-input"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import {SignInButton, useAuth} from "@clerk/nextjs";
 
 export default function Search() {
     const router = useRouter();
     const [search, setSearch] = useState("")
+    const { userId } = useAuth();
+
+    if (!userId) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                <p className="text-xl mb-4">You must be signed in to view this page.</p>
+                <SignInButton mode="modal">
+                    <Button className="cursor-pointer">Sign In</Button>
+                </SignInButton>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col justify-center items-center h-screen">

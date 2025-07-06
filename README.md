@@ -55,4 +55,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [x] Implement filtering on home page
 - [x] Implement search (and filter)
 - [x] Being logged out prompts login
-- [ ] Accent color picker?
+- [x] Accent color picker

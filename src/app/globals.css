@@ -129,3 +129,28 @@
   border-radius: 4px;
 }
 
+[data-accent="red"] {
+  --primary: #EF4444;
+}
+
+[data-accent="orange"] {
+  --primary: #F97316;
+}
+
+[data-accent="yellow"] {
+  --primary: #FACC15;
+}
+
+[data-accent="green"] {
+  --primary: #22c55e;
+}
+
+[data-accent="blue"] {
+  --primary: #3b82f6;
+}
+
+[data-accent="purple"] {
+  --primary: #8b5cf6;
+}
+
+

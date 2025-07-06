@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
 type SortToggleProps = {
@@ -6,16 +5,14 @@ type SortToggleProps = {
 }
 
 export function SortToggleGroup({ setSort }: SortToggleProps) {
-    const [sortValue, setSortValue] = useState("created")
-
     return (
         <ToggleGroup
             type="single"
-            value={sortValue}
+            defaultValue="created"
+            variant="outline"
             onValueChange={(val) => {
                 if (val) {
-                    setSortValue(val)
-                    setSort(val)
+                    setSort(val);
                 }
             }}
             className="justify-self-center flex w-2/3 md:w-1/9"
@@ -33,5 +30,6 @@ export function SortToggleGroup({ setSort }: SortToggleProps) {
                 Artist
             </ToggleGroupItem>
         </ToggleGroup>
-    )
+    );
 }
+

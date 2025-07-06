@@ -16,6 +16,7 @@ import DarkModeToggle from "@/components/dark-mode-toggle";
 import Link from "next/link";
 import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { useRef } from 'react';
+import { AccentPicker } from "@/components/accent-picker";
 
 const items = [
     {
@@ -78,6 +79,7 @@ export function AppSidebar() {
                 </SidebarGroup>
 
                 <div className="flex justify-end gap-2 p-4">
+                    <AccentPicker />
                     <DarkModeToggle />
                     <SignedIn>
                         <UserButton/>

@@ -19,7 +19,7 @@ export function SortToggleGroup({ setSort }: SortToggleProps) {
                     setSort(val)
                 }
             }}
-            className="justify-self-center flex w-2/3 md:w-1/9"
+            className="justify-self-center flex w-2/3 md:w-1/9 min-w-[250px]"
         >
             <ToggleGroupItem value="created" className="cursor-pointer">
                 Created

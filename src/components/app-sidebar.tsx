@@ -79,8 +79,16 @@ export function AppSidebar() {
                 </SidebarGroup>
 
                 <div className="flex justify-end gap-2 p-4">
-                    <AccentPicker />
-                    <DarkModeToggle />
+                    <div className="flex flex-col items-end gap-2">
+                        <div className="flex flex-row">
+                            <AccentPicker />
+                            <DarkModeToggle />
+                        </div>
+                        <div className="text-xs">
+                            Developed by <a className="underline" target="_blank" href="https://alexwilsonsoftware.github.io/">Alex Wilson</a>
+                        </div>
+                    </div>
+
                 </div>
             </SidebarContent>
 
